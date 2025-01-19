@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <a  class="btn btn-primary mb-4">Register for new Course</a>
+                <a  href="{{ route('student.course.batch.register',$student->id) }}" class="btn btn-primary mb-4">Register for new Course</a>
 
                 <table class="table-auto w-full">
                     <thead>

@@ -20,9 +20,9 @@ class Payment extends Model
         'installment',
     ];
 
-    // Define the relationship to the StudentCourseBatch model (many-to-one)
+    // Define the inverse relationship to StudentCourseBatch
     public function studentCourseBatch()
     {
-        return $this->belongsTo(StudentCourseBatch::class);
+        return $this->belongsTo(StudentCourseBatch::class, 'student_course_batch_id', 'id');
     }
 }

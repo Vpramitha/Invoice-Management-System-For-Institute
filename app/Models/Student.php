@@ -26,7 +26,7 @@ class Student extends Model
     public $timestamps = true;
 
     // Define the relationship between Student and StudentCourseBatch
-    public function courseBatches()
+    public function studentCourseBatch()
     {
         return $this->hasMany(StudentCourseBatch::class); // A student can have multiple course batch registrations
     }

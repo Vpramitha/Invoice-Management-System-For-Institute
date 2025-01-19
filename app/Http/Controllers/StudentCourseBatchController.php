@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 namespace App\Http\Controllers;
 
 use App\Models\CourseBatch;
+use App\Models\Course;
 use App\Models\Student;
 use App\Models\StudentCourseBatch;
 use Illuminate\Http\Request;
@@ -43,7 +44,16 @@ class StudentCourseBatchController extends Controller
         ]);
 
         // Redirect with a success message
-        return redirect()->route('student_course_batch.create')->with('success', 'Student successfully registered for the course batch!');
+        return redirect()->route('students.courses', $request->student_id)->with('success', 'Student successfully registered for the course batch!');
+    }
+
+    public function studentRegister()
+    {
+        // Fetch all courses with their related course batches
+        $courses = Course::all();
+
+        // Return the view with the courses and course batches
+        return view('student_course_batch.test', compact('courses'));
     }
 }
 

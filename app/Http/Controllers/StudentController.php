@@ -9,6 +9,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\StudentCourseBatch;
+use App\Models\Course;
 
 class StudentController extends Controller
 {
@@ -197,4 +198,41 @@ class StudentController extends Controller
             return redirect()->route('students.index')->with('error', 'An error occurred while fetching courses.');
         }
     }
+
+    public function RegisterForNewCourse($studentId)
+    {
+        $courses = Course::all();
+        $student = Student::findOrFail($studentId);
+
+        // Return the view with the courses and course batches
+        return view('students.registerForNewCourse', compact('student','courses'));
+
+    }
+
+    public function normalSearch(Request $request)
+    {
+        $request->validate(['student_id' => 'required']);
+        // Perform search by student_id
+        $students = Student::where('id', $request->student_id)->paginate(10);
+        return view('students.index', compact('students'));
+    }
+
+    public function advancedSearch(Request $request)
+    {
+        $request->validate([
+            'name' => 'nullable|string',
+            'email' => 'nullable|email',
+        ]);
+        // Perform search by name and/or email
+        $query = Student::query();
+        if ($request->name) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        }
+        if ($request->email) {
+            $query->where('email', $request->email);
+        }
+        $students = $query->paginate(10);
+        return view('students.index', compact('students'));
+    }
+
 }

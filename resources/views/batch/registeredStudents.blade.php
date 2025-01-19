@@ -1,7 +1,8 @@
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-    {{ __('Batches Of the ') }}{{ $course->course_name }}
+    {{ __('Registered Students for batch ') }}{{$batch->batch}}{{' of the '}}{{ $course->course_name }}
 </h2>
 
     </x-slot>
@@ -9,37 +10,31 @@
     <div class="py-12">
         
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $course->course_name }}</h1>
+            <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $course->course_name }} Batch {{$batch->batch}}</h1>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 
-                <a href="{{ route('batches.create',$course->id)}}" class="btn btn-primary mb-4">Add New Batch</a>
+                <a  class="btn btn-primary mb-4">Add New Student</a>
 
                 <table class="table-auto w-full">
                     <thead>
                         <tr>
                             <th class="px-4 py-2">ID</th>
-                            <th class="px-4 py-2">Batch</th>
-                            <th class="px-4 py-2">Course Price for Batch</th>
-                            <th class="px-4 py-2">Start_date</th>
+                            <th class="px-4 py-2">Name</th>
+                            <th class="px-4 py-2">Email</th>
+                            <th class="px-4 py-2">Paid Amount</th>
                             
-                            
-                            <th class="px-4 py-2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($batches as $batch)
+                        @foreach ($students as $student)
                             <tr>
-                                <td class="border px-4 py-2">{{ $batch->id }}</td> <!-- Use the ID -->
-                                <td class="border px-4 py-2">{{ $batch->batch }}</td>
-                                <td class="border px-4 py-2">{{ $batch->course_price }}</td>
-                                <td class="border px-4 py-2">{{ $batch->start_date }}</td>
+                                <td class="border px-4 py-2">{{ $student->student->id }}</td> <!-- Use the ID -->
+                                <td class="border px-4 py-2">{{ $student->student->name }}</td>
+                                <td class="border px-4 py-2">{{ $student->student->email }}</td>
+                                <td class="border px-4 py-2"></td>
                                 
                                
-                                <td class="border px-4 py-2">
-                                    <a href="{{ route('course.batch.registeredStudents', ['course' => $course->id, 'batch' => $batch->id]) }}" class="btn btn-primary">Registered Students</a>
-
-                                    
-                                </td>
+                                
                             </tr>
                         @endforeach
                     </tbody>

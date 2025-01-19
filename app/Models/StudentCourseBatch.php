@@ -23,8 +23,9 @@ class StudentCourseBatch extends Model
     // Define the relationship to the Student model (many-to-one)
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'student_id', 'id'); // Ensure 'student_id' matches the column name in your table
     }
+
 
     // Define the relationship to the CourseBatch model (many-to-one)
     public function courseBatch()
@@ -32,10 +33,12 @@ class StudentCourseBatch extends Model
         return $this->belongsTo(CourseBatch::class);
     }
 
-    // Define the relationship between StudentCourseBatch and Payment
+    // Add the relationship for payments
     public function payments()
     {
-        return $this->hasMany(Payment::class); // A student-course batch can have multiple payments
+        return $this->hasMany(Payment::class, 'student_course_batch_id', 'id');
     }
+    
+    
 }
 

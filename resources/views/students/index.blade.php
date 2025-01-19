@@ -37,6 +37,8 @@
                                         @method('DELETE')
                                         <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $student->id }})">Reject</button>
                                     </form>
+
+                                    <a  href="{{ route('student.course.batch.register',$student->id) }}" class="btn btn-primary">Register for new Course</a>
                                     
                                 </td>
                             </tr>

@@ -4,20 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseBatch;
+use App\Models\StudentCourseBatch;
 use Illuminate\Http\Request;
 
 class CourseBatchController extends Controller
 {
     // Display the form for creating a new course batch
-    public function create()
+    public function create($id)
     {
-        // Fetch all courses from the 'courses' table
-        $courses = Course::all();
+        // Fetch the specific course by ID
+        $course = Course::findOrFail($id);
 
-        // Return the view with the courses
-        return view('course_batches.create', compact('courses'));
+        // Fetch all batch courses where 'course_id' matches the given ID
+        $batches = CourseBatch::where('course_id', $id)->get();
+
+        // Return the view with the course and batches
+        return view('batch.create', compact('course', 'batches'));
     }
-
     // Store a new course batch
     public function store(Request $request)
     {
@@ -44,6 +47,23 @@ class CourseBatchController extends Controller
         ]);
 
         // Redirect with a success message
-        return redirect()->route('course_batches.create')->with('success', 'Batch created successfully!');
+        return redirect()->route('courses.batches', $request->course_id)->with('success', 'Batch created successfully!');
     }
+
+    public function registeredStudents($courseId, $batchId)
+    {
+        // Fetch the course
+        $course = Course::findOrFail($courseId);
+
+        $batch = CourseBatch::findOrFail($batchId);
+
+        $students = StudentCourseBatch::where('course_batch_id', $batchId)
+            ->with('student') // Ensure this relationship is defined correctly
+            ->get();
+
+
+        // Return the view with course, batch, and students
+        return view('batch.registeredStudents', compact('course', 'batch', 'students'));
+    }
+
 }

@@ -8,6 +8,8 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseBatchController;
 use App\Http\Controllers\StudentCourseBatchController;
 
+use App\Models\CourseBatch;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +39,10 @@ Route::middleware('auth')->group(function () {
         })->name('studentRegister');
 
     Route::resource('students', StudentController::class);
+
+    Route::post('/students/search/normal', [StudentController::class, 'normalSearch'])->name('students.search.normal');
+    Route::post('/students/search/advanced', [StudentController::class, 'advancedSearch'])->name('students.search.advanced');
+
     // Define a custom route for courses
     Route::get('students/{student}/courses', [StudentController::class, 'courses'])->name('students.courses');
 
@@ -45,10 +51,29 @@ Route::middleware('auth')->group(function () {
     Route::resource('courses', CourseController::class);
     Route::get('batches/{batch}/batches', [CourseController::class, 'batches'])->name('courses.batches');
 
-    Route::resource('course_batches', CourseBatchController::class);
+    Route::resource('batches', CourseBatchController::class);
+    Route::get('batches/{batch}/create', [CourseBatchController::class, 'create'])->name('batches.create');
+    //Route::get('batches/{batch}/create', [CourseBatchController::class, 'create'])->name('batches.create');
+    Route::get('/course/{course}/batch/{batch}/registered-students', [CourseBatchController::class, 'registeredStudents'])
+        ->name('course.batch.registeredStudents');
 
     Route::resource('student_course_batch', StudentCourseBatchController::class);
+    //});
+
+    Route::get('{student}/course/batch/register', [StudentController::class, 'RegisterForNewCourse'])->name('student.course.batch.register');
+
+Route::get('/api/course/{courseId}/batches', function ($courseId) {
+    return CourseBatch::where('course_id', $courseId)->get();
+});
+
+    Route::get('/api/batch/{batchId}/details', function ($batchId) {
+        return CourseBatch::find($batchId);
     });
 
+
+
+    Route::resource('payments', PaymentController::class);
+
+});
 
 require __DIR__.'/auth.php';
