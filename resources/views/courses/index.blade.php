@@ -32,9 +32,9 @@
                                 <td class="border px-4 py-2">{{ $course->support_staff }}</td>
                                
                                 <td class="border px-4 py-2">
-                                    <a href="{{ route('courses.batches',$course->id) }}" class="btn btn-primary">Batches</a>
+                                    <a href="{{ route('courses.batches', $course->id) }}" class="btn btn-primary">Batches</a>
                                     
-                                    <a href="{{ route('courses.edit',$course->id) }}" class="btn btn-warning">Edit</a>
+                                    <a href="{{ route('courses.edit', $course->id) }}" class="btn btn-warning">Edit</a>
 
                                     <!-- The 'Reject' button will trigger SweetAlert and form submission -->
                                     <form id="delete-form-{{ $course->id }}" action="{{ route('courses.destroy', $course->id) }}" method="POST" style="display: inline;">

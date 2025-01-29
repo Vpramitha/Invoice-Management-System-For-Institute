@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\PaymentInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\QueryException;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\StudentCourseBatch;
 use App\Models\Course;
+use App\Models\Payment;
 
 class StudentController extends Controller
 {
@@ -233,6 +235,32 @@ class StudentController extends Controller
         }
         $students = $query->paginate(10);
         return view('students.index', compact('students'));
+    }
+
+    public function payments($studentId,$invoiceId)
+    {
+        // Check if the student exists
+        $student = Student::findOrFail($studentId);
+
+        $studentCourseBatches = StudentCourseBatch::where('student_id', $studentId)
+            ->with(['courseBatch.course', 'courseBatch.installments']) // Corrected eager loading for related models
+            ->get();
+
+
+        // Fetch payments for each course batch and group them
+        $courseBatchPayments = [];
+        foreach ($studentCourseBatches as $batch) {
+            $courseBatchPayments[$batch->id] = Payment::where('student_course_batch_id', $batch->id)->get();
+        }
+if(!$invoiceId==0){
+            $invoice_Payments = PaymentInvoice::Where('invoice_id', $invoiceId)
+                ->with(['invoice', 'payment.studentCourseBatch.courseBatch.course'])
+                ->get();
+}else{
+    $invoice_Payments=null;
+}
+        // Return the view with the student, course batches, and grouped payments
+        return view('students.payments', compact('student', 'studentCourseBatches', 'courseBatchPayments','invoice_Payments'));
     }
 
 }

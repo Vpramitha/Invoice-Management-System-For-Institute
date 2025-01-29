@@ -33,6 +33,11 @@ class CourseBatch extends Model
     {
         return $this->hasMany(StudentCourseBatch::class); // A course batch can have multiple student registrations
     }
+
+    public function installments()
+    {
+        return $this->hasMany(Installment::class);
+    }
 }
 
 

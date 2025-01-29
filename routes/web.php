@@ -7,6 +7,8 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseBatchController;
 use App\Http\Controllers\StudentCourseBatchController;
+use App\Http\Controllers\excelExportController;
+use App\Http\Controllers\ReportController;
 
 use App\Models\CourseBatch;
 
@@ -27,9 +29,9 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'prevent-back-button'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'prevent-back-button'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -45,6 +47,8 @@ Route::middleware('auth')->group(function () {
 
     // Define a custom route for courses
     Route::get('students/{student}/courses', [StudentController::class, 'courses'])->name('students.courses');
+
+    Route::get('students/{student}/payments/{invoice}', [StudentController::class, 'payments'])->name('students.payments');
 
     Route::resource('payments', PaymentController::class);
 
@@ -73,6 +77,18 @@ Route::get('/api/course/{courseId}/batches', function ($courseId) {
 
 
     Route::resource('payments', PaymentController::class);
+
+    //Route::post('/students/search/normal', [StudentController::class, 'normalSearch'])->name('students.search.normal');
+
+    //Route::post('payment/invoice', [PaymentController::class, 'invoice'])->name('payment.invoice');
+
+    Route::get('payment/invoice/{invoiceId}', [PaymentController::class, 'printInvoice'])->name('payment.invoice');
+
+    //Route::get('/export-users', [excelExportController::class, 'exportUsers'])->name('export.users');
+    Route::get('/Reports', [ReportController::class, 'index'])->name('report.index');
+    Route::get('/export-users', [ReportController::class, 'exportUsers'])->name('export.users');
+    Route::get('/export-payments', [ReportController::class, 'exportPayments'])->name('export.payments');
+
 
 });
 

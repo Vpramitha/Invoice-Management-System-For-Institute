@@ -1,7 +1,7 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
     {{ __('Registered Students for batch ') }}{{$batch->batch}}{{' of the '}}{{ $course->course_name }}
 </h2>
 
@@ -10,7 +10,7 @@
     <div class="py-12">
         
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $course->course_name }} Batch {{$batch->batch}}</h1>
+            <h1 class="font-semibold text-xl text-gray-800 leading-tight">{{ $course->course_name }} Batch {{$batch->batch}}</h1>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 
                 <a  class="btn btn-primary mb-4">Add New Student</a>

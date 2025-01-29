@@ -25,10 +25,10 @@
                                 <td class="border px-4 py-2">{{ $student->id }}</td> <!-- Use the ID -->
                                 <td class="border px-4 py-2">{{ $student->name }}</td>
                                 <td class="border px-4 py-2">{{ $student->email }}</td>
-                               
+
                                 <td class="border px-4 py-2">
                                     <a href="{{ route('students.courses', $student->id) }}" class="btn btn-primary">Courses</a>
-                                    <a class="btn btn-info">Payments</a>
+                                    <a href="{{ route('students.payments', [$student->id, 0]) }}" class="btn btn-info">Payments</a>
                                     <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning">Edit</a>
 
                                     <!-- The 'Reject' button will trigger SweetAlert and form submission -->
@@ -38,8 +38,8 @@
                                         <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $student->id }})">Reject</button>
                                     </form>
 
-                                    <a  href="{{ route('student.course.batch.register',$student->id) }}" class="btn btn-primary">Register for new Course</a>
-                                    
+                                    <a  href="{{ route('student.course.batch.register', $student->id) }}" class="btn btn-primary">Register for new Course</a>
+
                                 </td>
                             </tr>
                         @endforeach

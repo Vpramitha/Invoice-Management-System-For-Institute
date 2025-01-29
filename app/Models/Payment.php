@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Payment extends Model
 {
     use HasFactory;
@@ -25,4 +26,10 @@ class Payment extends Model
     {
         return $this->belongsTo(StudentCourseBatch::class, 'student_course_batch_id', 'id');
     }
+
+    public function paymentInvoices()
+    {
+        return $this->hasMany(PaymentInvoice::class, 'payment_id');
+    }
+   
 }

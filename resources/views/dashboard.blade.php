@@ -8,9 +8,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-dark dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+               <!-- <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
-                </div>
+                </div>-->
 
                 <!-- Cards Section -->
                 <div class="container my-5">
@@ -120,5 +120,42 @@
 
             </div>
         </div>
+        
     </div>
+    
+
+
+    <script>
+        window.history.pushState(null, document.title, window.location.href);
+
+        window.onpopstate = function (event) {
+            // Push the current state again to prevent going back
+            window.history.pushState(null, document.title, window.location.href);
+
+            // Show a custom modal instead of an alert
+            showBackButtonModal();
+        };
+
+        function showBackButtonModal() {
+            const modal = document.createElement('div');
+            modal.innerHTML = `
+                <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+                    <div style="background: white; padding: 20px; border-radius: 10px; max-width: 400px; text-align: center;">
+                        <h3>You cannot go back on this page!</h3>
+                        <p>This action is restricted. Please continue to your task.</p>
+                        <button onclick="closeModal()">OK</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('div[style*="position: fixed"]');
+            if (modal) {
+                modal.remove();
+            }
+        }
+    </script>
+
 </x-app-layout>
