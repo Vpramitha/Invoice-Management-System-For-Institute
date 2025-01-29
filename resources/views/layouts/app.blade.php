@@ -68,14 +68,15 @@
                 </svg>
             </button>
             <nav class="flex flex-col space-y-4 mt-4 flex-grow">
-             <!--   <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
+             <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10z" />
                     </svg>
                     <span x-show="open" class="ml-2">Dashboard</span>
-                </a>-->
+                </a>
+                <!--
                 <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
                     <img src="{{ asset('data.png') }}" alt="Dashboard Icon" class="w-10 h-8">
                     <span x-show="open" class="ml-2">Dashboard</span>
@@ -83,19 +84,28 @@
                 <a href="{{ route('courses.index') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
                     <img src="{{ asset('courses.png') }}" alt="Courses Icon" class="w-10 h-8">
                     <span x-show="open" class="ml-2">Courses</span>
-                </a>
-               <!-- <a href="{{ route('courses.index') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
+                </a>-->
+               <a href="{{ route('courses.index') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 14l9-5-9-5-9 5 9 5z" />
                     </svg>
                     <span x-show="open" class="ml-2">Courses</span>
-                </a>-->
+                </a>
+
                 <a href="{{ route('students.index') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
-                    <img src="{{ asset('students.png') }}" alt="Students Icon" class="w-10 h-8">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5v-2a4 4 0 0 0-3-3.87M9 12a4 4 0 1 0-8 0v2a4 4 0 0 0 3 3.87m6-3.87a4 4 0 0 1 8 0v2a4 4 0 0 1-3 3.87M9 20h6" />
+                    </svg>
                     <span x-show="open" class="ml-2">Students</span>
                 </a>
+
+                <!--<a href="{{ route('students.index') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
+                    <img src="{{ asset('students.png') }}" alt="Students Icon" class="w-10 h-8">
+                    <span x-show="open" class="ml-2">Students</span>
+                </a>-->
                 <a href="{{ route('payments.index') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
