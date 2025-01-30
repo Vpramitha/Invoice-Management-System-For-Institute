@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\CourseBatch;
 use App\Models\StudentCourseBatch;
+use App\Models\Installment;
 use Illuminate\Http\Request;
 
 class CourseBatchController extends Controller
@@ -33,10 +34,11 @@ class CourseBatchController extends Controller
             'description' => 'nullable|string',
             'start_date' => 'nullable|date',
             'start_month' => 'nullable|string|max:255',
+            'num_of_installments'=>'required|numeric',
         ]);
 
         // Create a new course batch
-        CourseBatch::create([
+        $courseBatch = CourseBatch::create([
             'course_id' => $request->course_id,
             'batch' => $request->batch,
             'course_price' => $request->course_price,
@@ -45,6 +47,18 @@ class CourseBatchController extends Controller
             'start_date' => $request->start_date,
             'start_month' => $request->start_month,
         ]);
+
+        $courseBatchId = $courseBatch->id; // Get the ID
+
+        // Create installments plan
+        $installmentAmount = $request->course_price / $request->num_of_installments;
+        for ($i = 1; $i <= $request->num_of_installments; $i++) {
+            Installment::create([
+                'course_batch_id' => $courseBatchId,
+                'installment' => $i,
+                'amount' => $installmentAmount,
+            ]);
+        }
 
         // Redirect with a success message
         return redirect()->route('courses.batches', $request->course_id)->with('success', 'Batch created successfully!');

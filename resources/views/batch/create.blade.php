@@ -74,6 +74,13 @@
     </select>
 </div>
 
+
+<!-- Number of Installments -->
+<div class="mb-3">
+    <label for="num_of_installments" class="form-label">Number of Installments</label>
+    <input type="number" class="form-control" id="num_of_installments" name="num_of_installments" required step="1">
+</div>
+
                                 
                                     <!-- Submit Button -->
                                 <div class="text-center">

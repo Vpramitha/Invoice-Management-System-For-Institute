@@ -93,6 +93,13 @@
             @enderror
         </div>
 
+        <div class="form-group">
+            <label for="start_month">Number of Installments</label>
+            <input type="text" name="num_of_installments" id="num_of_installments" class="form-control">
+            @error('num_of_installments')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Create Batch</button>
     </form>
