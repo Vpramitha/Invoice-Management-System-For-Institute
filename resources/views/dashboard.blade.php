@@ -123,8 +123,7 @@
         
     </div>
     
-
-
+<!--
     <script>
         window.history.pushState(null, document.title, window.location.href);
 
@@ -156,6 +155,6 @@
                 modal.remove();
             }
         }
-    </script>
+    </script>-->
 
 </x-app-layout>
