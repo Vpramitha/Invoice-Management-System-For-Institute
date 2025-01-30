@@ -9,6 +9,7 @@ use App\Http\Controllers\CourseBatchController;
 use App\Http\Controllers\StudentCourseBatchController;
 use App\Http\Controllers\excelExportController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\BrokerController;
 
 use App\Models\CourseBatch;
 
@@ -89,6 +90,8 @@ Route::get('/api/course/{courseId}/batches', function ($courseId) {
     Route::get('/export-users', [ReportController::class, 'exportUsers'])->name('export.users');
     Route::get('/export-payments', [ReportController::class, 'exportPayments'])->name('export.payments');
 
+    Route::Resource('brokers', BrokerController::class);
+    //Route::get('/brokers/create', [BrokerController::class, 'create'])->name('brokers.create');
 
 });
 

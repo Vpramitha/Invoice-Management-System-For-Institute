@@ -22,6 +22,15 @@
             background-color: #2d3748;
             /* Sidebar color */
         }
+
+        .sidebar a {
+    margin-bottom: 1rem; /* Add space between items */
+}
+
+/* Optional: You can also add padding for better spacing inside each item */
+.sidebar a:hover {
+    padding: 0.8rem; /* Optional, adjust as needed */
+}
     
         /* Main header (Top bar) */
         .header {
@@ -67,7 +76,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </button>
-            <nav class="flex flex-col space-y-4 mt-4 flex-grow">
+            <nav class="flex flex-col space-y-4 mt-4 flex-grow" style="height: 100vh;">
+                
              <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -114,6 +124,16 @@
                     </svg>
                     <span x-show="open" class="ml-2">Payments</span>
                 </a>
+            <a href="{{ route('brokers.index') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
+                <svg class="w-6 h-6 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 7h18M12 7v12M5 7V3a2 2 0 012-2h10a2 2 0 012 2v4M5 7h14" />
+                </svg>
+                <span x-show="open" class="ml-2">Brokers</span>
+            </a>
+
+
                 <a href="{{ route('report.index') }}" class="flex items-center px-4 py-2 hover:bg-gray-700">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -140,6 +160,7 @@
                     </svg>
                     <button class="w-full text-left" x-show="open">Log Out</button>
                 </form>
+                
             </nav>
         </div>
 
