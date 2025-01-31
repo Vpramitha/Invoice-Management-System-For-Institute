@@ -142,7 +142,7 @@
                     <span x-show="open" class="ml-2">Reports</span>
                 </a>
                 <!-- Profile & Logout in Sidebar -->
-                <a  class="flex items-center px-4 py-2 hover:bg-gray-700 mt-auto">
+                <a  class="flex items-center px-4 py-2 hover:bg-gray-700">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
