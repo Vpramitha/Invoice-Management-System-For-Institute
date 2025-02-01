@@ -84,6 +84,7 @@ Route::get('/api/course/{courseId}/batches', function ($courseId) {
     //Route::post('payment/invoice', [PaymentController::class, 'invoice'])->name('payment.invoice');
 
     Route::get('payment/invoice/{invoiceId}', [PaymentController::class, 'printInvoice'])->name('payment.invoice');
+    Route::get('payment/delete/invoice/{invoiceId}', [PaymentController::class, 'cancelInvoice'])->name('payment.invoice.cancel');
 
     //Route::get('/export-users', [excelExportController::class, 'exportUsers'])->name('export.users');
     Route::get('/Reports', [ReportController::class, 'index'])->name('report.index');

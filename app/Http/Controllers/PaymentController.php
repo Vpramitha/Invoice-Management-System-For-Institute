@@ -102,4 +102,37 @@ class PaymentController extends Controller
         return $invoiceId;
     }
 
+    public function cancelInvoice($invoiceId)
+    {
+        // Fetch the invoice records that match the given invoice_id
+        $invoices = PaymentInvoice::where('invoice_id', $invoiceId)->get();
+
+        // Loop through each invoice and get the related payment records
+        foreach ($invoices as $invoice) {
+            // Fetch the related payment records using the payment_id from the invoice
+            $payments = Payment::where('id', $invoice->payment_id)->get();
+
+            // Delete each payment record
+            foreach ($payments as $payment) {
+                $payment->delete();
+            }
+
+            // Optionally, you can delete the invoice itself if needed
+            // $invoice->delete();
+        }
+
+        // Update the status of the invoice to 'cancelled'
+        Invoice::where('id', $invoiceId)->update([
+            'status' => 'cancelled',
+        ]);
+
+        // Redirect back to the payments page with a success message
+        return redirect()
+            ->route('students.index')
+            ->with([
+                'warning' => 'Invoice cancelled and related payments deleted successfully!',
+            ]);
+
+    }
+
 }

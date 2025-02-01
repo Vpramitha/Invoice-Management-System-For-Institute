@@ -1,14 +1,46 @@
 <x-app-layout>
-    <script>
-        // Push a new state to the history stack
-        history.pushState(null, null, location.href);
 
-        // Listen for the popstate event
-        window.addEventListener('popstate', function (event) {
-            // Push the state again to prevent back navigation
+    <!-- Include SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Include SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script>
+        // Extract the invoice ID safely
+        var invoiceId = {{ $invoice_Payments && $invoice_Payments->isNotEmpty() && $invoice_Payments->first()->invoice->id ? $invoice_Payments->first()->invoice->id : 0 }};
+
+        if (invoiceId > 0) {
+            // Push a new state to the history stack
             history.pushState(null, null, location.href);
-        });
+
+            // Listen for the popstate event
+            window.addEventListener('popstate', function (event) {
+                // Prevent back navigation
+                history.pushState(null, null, location.href);
+
+                // Show SweetAlert confirmation dialog
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "If you go back, it will delete all payment details associated with this invoice. Do you really want to leave?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete and go back',
+                    cancelButtonText: 'No, stay on this page',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the cancel invoice route only if the invoice ID is valid
+                        window.location.href = `/payment/delete/invoice/${invoiceId}`;
+                    } else {
+                        console.log("User chose to stay on the page.");
+                    }
+                });
+            });
+        }
     </script>
+
+
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">

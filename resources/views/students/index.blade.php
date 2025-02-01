@@ -76,6 +76,18 @@
     </script>
 @endif
 
+@if(session('warning'))
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'warning',
+            text: '{{ session('warning') }}',
+            showConfirmButton: true
+        });
+    </script>
+@endif
+
+
 
 <!-- SweetAlert Confirmation Script for Delete -->
     <script>

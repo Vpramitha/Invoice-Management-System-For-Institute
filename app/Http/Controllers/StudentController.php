@@ -58,21 +58,22 @@ class StudentController extends Controller
 
         try {
             // Create the student record
-            Student::create([
+            $student = Student::create([
                 'name' => $request->name,
                 'email' => $request->email,
             ]);
 
-            // Return a success response
-            return redirect()->route('students.index')->with('success', 'Student registered successfully!');
+            // Redirect to the students list with success message and pass student ID
+            return redirect()->route('student.course.batch.register', $student->id)
+                ->with('success', 'Student registered successfully!');
+
         } catch (QueryException $e) {
-            // Handle any database exceptions
             return redirect()->route('students.create')->with('error', 'There was an error processing the request.');
         } catch (\Exception $e) {
-            // Handle any other exceptions
-            return redirect()->route('students.create')->with('error', 'An unexpected error occurred.');
+            return redirect()->route('students.create')->with('error', 'An unexpected error occurred.'.$e->getMessage());
         }
     }
+
 
     /**
      * Display the specified student.

@@ -35,10 +35,10 @@ class CourseController extends Controller
             ]);
 
             // Create the course
-            Course::create($request->all());
+            $course = Course::create($request->all());
 
             // Redirect with success message
-            return redirect()->route('courses.index')->with('success', 'Course created successfully!');
+            return redirect()->route('batches.create',$course->id)->with('success', 'Course created successfully!Add the first batch for the course.');
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Handle validation exceptions specifically
             return back()->withErrors($e->errors())->withInput();
